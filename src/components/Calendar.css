@@ -1,0 +1,403 @@
+.calendar-container {
+  max-width: 1100px;
+  margin: 30px auto;
+  background: var(--month-bg, #ffffff);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  transition: all 0.3s ease;
+}
+
+/* Soft, pleasant colors for different months */
+.month-January { --month-bg: #f0f7ff; }   /* Soft Winter Blue */
+.month-February { --month-bg: #f5f3ff; }  /* Soft Lavender */
+.month-March { --month-bg: #f0fdf4; }     /* Fresh Spring Green */
+.month-April { --month-bg: #fff7ed; }     /* Soft Peach */
+.month-May { --month-bg: #fdf2f8; }       /* Light Rose */
+.month-June { --month-bg: #f0fdfa; }      /* Cool Mint */
+.month-July { --month-bg: #ecfeff; }      /* Ocean Blue */
+.month-August { --month-bg: #fffbeb; }    /* Warm Sand */
+.month-September { --month-bg: #f8fafc; } /* Cool Gray */
+.month-October { --month-bg: #fff7ed; }   /* Warm Orange */
+.month-November { --month-bg: #faf5ff; }  /* Soft Purple */
+.month-December { --month-bg: #f8f9ff; }  /* Ice Blue */
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 12px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 10px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #1e293b;
+  background: white;
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.search-button {
+  padding: 10px 20px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.search-button:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+}
+
+.search-result {
+  padding: 8px 12px;
+  background: #f0f9ff;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #0369a1;
+  font-weight: 500;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.month-title {
+  text-align: center;
+  padding: 8px 16px;
+  background: linear-gradient(to right, #f8fafc, #fff);
+  border-radius: 12px;
+}
+.month { 
+  font-size: 24px; 
+  font-weight: 700;
+  background: linear-gradient(120deg, #2563eb, #4f46e5);
+  /* -webkit-background-clip: text; */
+  -webkit-text-fill-color: transparent;
+}
+.year { 
+  font-size: 15px; 
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.nav-btn {
+  border: none;
+  background: #f1f5f9;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #334155;
+  transition: all 0.2s ease;
+}
+.nav-btn:hover { 
+  transform: translateY(-2px);
+  background: #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.weekdays {
+  display:grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align:center;
+  font-weight:600;
+  color:#555;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+}
+
+.calendar-grid {
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-top: 10px;
+}
+
+.week-row {
+  display:grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap:8px;
+}
+
+.day-cell {
+  min-height: 120px;
+  border-radius: 12px;
+  padding: 10px;
+  background: linear-gradient(165deg, #ffffff, var(--month-bg, #f8fafc));
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+}
+.day-cell:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+  border-color: #cbd5e1;
+}
+
+.day-cell.muted {
+  opacity: 0.45;
+}
+
+.date-number {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  color: #64748b;
+  font-weight: 500;
+  background: rgba(255,255,255,0.8);
+  padding: 8px 12px;
+  border-radius: 12px;
+  z-index: 1;
+  backdrop-filter: blur(4px);
+  text-align: center;
+  min-width: 40px;
+}
+
+.day-cell.today {
+  background: linear-gradient(165deg, #eff6ff, #f8faff);
+  box-shadow: 0 0 0 2px rgba(59,130,246,0.15);
+  border: 1px solid rgba(59,130,246,0.3);
+  animation: todayPulse 2s infinite;
+}
+
+@keyframes todayPulse {
+  0% { box-shadow: 0 0 0 0 rgba(59,130,246,0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(59,130,246,0); }
+  100% { box-shadow: 0 0 0 0 rgba(59,130,246,0); }
+}
+
+.events-list {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 0;
+  padding-top: 35px;
+}
+
+.event-item {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #1e293b;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: all 0.2s ease;
+  margin: 0 4px;
+  position: relative;
+}
+
+.event-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--event-color, #eef2ff);
+  opacity: 0.2;
+  border-radius: 8px;
+  z-index: -1;
+}
+
+.event-item::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--event-color, #4f46e5);
+  border-radius: 4px 0 0 4px;
+}
+
+.event-item:hover {
+  transform: translateX(2px);
+}
+
+.event-time {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  font-weight: 600;
+  font-size: 11px;
+  color: var(--event-color, #4f46e5);
+}
+
+.event-time::after {
+  content: '→';
+  margin-left: 2px;
+  font-size: 10px;
+}
+
+.event-title {
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.event-item.conflict::before {
+  background: #ff6b6b;
+  opacity: 0.1;
+}
+
+.event-item.conflict::after {
+  background: #ff6b6b;
+}
+
+.more-indicator {
+  font-size:12px;
+  color:#555;
+}
+
+.legend {
+  margin-top: 12px;
+  display:flex;
+  gap:16px;
+  align-items:center;
+  color:#555;
+}
+.legend-item { display:flex; gap:6px; align-items:center; font-size:13px; }
+.dot { width:10px; height:10px; background:#6b7280; border-radius:50%; display:inline-block; }
+.conflict-dot { background:#ff6b6b; }
+.today-legend { margin-left:8px; padding:4px 8px; background:#f8fafc; border-radius:8px; font-size:12px; }
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  transform: translateY(-20px);
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.modal-overlay.active .modal-content {
+  transform: translateY(0);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #64748b;
+  padding: 4px;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.modal-events {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-event {
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--event-color, #eef2ff);
+  opacity: 0.9;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-event-time {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--event-color-dark, #4f46e5);
+}
+
+.modal-event-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1e293b;
+}

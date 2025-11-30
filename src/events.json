@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "title": "Team Standup",
+    "date": "2025-11-04",
+    "startTime": "09:30",
+    "durationMinutes": 30
+  },
+  {
+    "id": 2,
+    "title": "Client Call",
+    "date": "2025-11-04",
+    "startTime": "09:45",
+    "durationMinutes": 60
+  },
+  {
+    "id": 3,
+    "title": "Design Review",
+    "date": "2025-11-10",
+    "startTime": "15:00",
+    "durationMinutes": 45
+  },
+  {
+    "id": 4,
+    "title": "Lunch with Sam",
+    "date": "2025-11-12",
+    "startTime": "12:30",
+    "durationMinutes": 60
+  },
+  {
+    "id": 5,
+    "title": "Deployment",
+    "date": "2025-11-04",
+    "startTime": "16:00",
+    "durationMinutes": 30
+  }
+]

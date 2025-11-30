@@ -1,0 +1,20 @@
+:root {
+  --bg: #f6f7fb;
+}
+html,body,#root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: var(--bg);
+  color: #111827;
+  -webkit-font-smoothing:antialiased;
+}
+.app-header {
+  text-align:center;
+  margin: 24px 0;
+}
+.app-header h1 { margin: 0; font-size: 28px; }
+.app-header p { margin-top: 6px; color: #6b7280; }
+main { padding: 12px; }
